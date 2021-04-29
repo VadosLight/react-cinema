@@ -1,4 +1,4 @@
-export default {
+const state = {
   movieMore: {
     title: "",
     year: "",
@@ -11,3 +11,5 @@ export default {
   movieList: [],
   sortBy: "",
 };
+
+export default state;

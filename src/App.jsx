@@ -12,7 +12,7 @@ class App extends React.Component {
     return (
       <div className="application">
         <Header></Header>
-        <p>{console.log(store.getState())}</p>
+        {console.log(store.getState())}
         <Switch>
           <Route exact path="/">
             <Main />
