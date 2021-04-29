@@ -11,7 +11,8 @@ class MovieCard extends React.Component {
           className="movie-card__img"
         />
         <span className="movie-card__title">
-          {this.props.movie.Title}, <br />
+          {this.props.movie.Title}
+          <br />
           {this.props.movie.Year}
         </span>
       </div>

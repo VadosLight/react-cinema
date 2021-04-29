@@ -8,8 +8,10 @@
 
   border: 1px solid #c7c7c7;
   border-radius: 4px;
-  width: 14rem;
-  height: 22rem;
+  /* width: 25vw;
+  height: 35vh; */
+  width: 16rem;
+  height: 26rem;
   margin: 20px;
   cursor: pointer;
   overflow: hidden;
@@ -25,8 +27,8 @@
 }
 
 .movie-card__img {
-  width: 14rem;
-  height: 18rem;
+  width: 16rem;
+  height: 20rem;
 }
 
 .movie-card__title {
