@@ -13,21 +13,27 @@ class Header extends React.Component {
     fetch(`${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&s=${TITLE}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        if (data.Response === "False") {
-          throw new Error("Пустой ответ");
-        }
+        // console.log(data);
+        // if (data.Response === "False") {
+        //   throw new Error("Пустой ответ");
+        // }
         store.dispatch({ type: "PUT_LIST_MOVIES", movieList: data.Search });
       })
       .catch((rej) => console.log(rej))
       .finally(() => {
-        console.log("Хранилище ", store.getState());
+        // console.log("Хранилище ", store.getState());
       });
   }
 
   render() {
     return (
       <nav id="header">
+        <select id="sortOption">
+          <option>name A-Z</option>
+          <option>name Z-A</option>
+          <option>Rating min</option>
+          <option>Rating max</option>
+        </select>
         <Link to="/about">About</Link>
         <Link to="/">Main</Link>
         <div id="search-field">
