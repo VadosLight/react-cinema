@@ -1,7 +1,8 @@
 import { createStore } from "redux";
 
-import state from "./state"; //начальное состояние
+import state from "./initialState"; //начальное состояние
 import reducer from "./reducer"; //обработчик запросов / условный кассир
-import middleware from "./middleware"; //предстоит разобраться
+// import middleware from "./middleware"; //предстоит разобраться
+const store = createStore(reducer, state);
 
-export default createStore(reducer, state, middleware);
+export default store;
