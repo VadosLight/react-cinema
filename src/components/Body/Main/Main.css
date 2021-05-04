@@ -7,3 +7,19 @@
   align-content: flex-start;
   margin: 20px 30px;
 }
+
+.main__cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  align-content: flex-start;
+  margin: 20px 30px;
+}
+
+.btn-load-more {
+  width: 10rem;
+  height: 3rem;
+  margin-bottom: 30px;
+}

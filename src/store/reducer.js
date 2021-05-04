@@ -8,6 +8,10 @@ export default function reducer(state, action) {
       return { ...state, movieMore: action.movieMore };
     case actions.CHANGE_ORDER_SORT:
       return { ...state, sortBy: action.sortBy };
+    case actions.INCREMENT_COUNT_PAGE:
+      return { ...state, pageNumber: state.pageNumber + 1 };
+    case actions.RESETTING_COUNT_PAGE:
+      return { ...state, pageNumber: 2 };
 
     default:
       return state;

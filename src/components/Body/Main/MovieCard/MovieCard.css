@@ -11,7 +11,7 @@
   /* width: 25vw;
   height: 35vh; */
   width: 16rem;
-  height: 26rem;
+  height: 24rem;
   margin: 20px;
   cursor: pointer;
   overflow: hidden;
@@ -35,6 +35,9 @@
   font-size: 1rem;
   font-weight: bold;
   margin: 0 5px;
+  width: 90%;
+  color: black;
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 800px) {

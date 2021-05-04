@@ -1,0 +1,15 @@
+.more {
+}
+
+.more__background {
+  filter: brightness(10%);
+  width: 100%;
+  min-width: 1200px;
+  position: fixed;
+
+  z-index: -1;
+}
+
+.more-container {
+  color: white;
+}

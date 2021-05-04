@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-import { openConst, privateConst } from "../../constants";
-import store, { actions } from "../../store";
+import { openConst, privateConst } from "constants/index";
+import store, { actions } from "store";
 import * as sortBy from "./utils";
 
 class Header extends React.Component {
   fetchListMovies() {
+    store.dispatch({ type: actions.RESETTING_COUNT_PAGE });
     const TITLE = encodeURIComponent(
       document.getElementById("search-field__input").value
     );
@@ -67,9 +68,9 @@ class Header extends React.Component {
         <Link to="/">Main</Link>
         <div id="search-field">
           <input id="search-field__input" type="text" />
-          <button id="search-field__btn" onClick={this.fetchListMovies}>
+          <Link to="/" id="search-field__btn" onClick={this.fetchListMovies}>
             Поиск
-          </button>
+          </Link>
         </div>
       </nav>
     );

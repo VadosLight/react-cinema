@@ -10,6 +10,7 @@ const state = {
   },
   movieList: [],
   sortBy: "",
+  pageNumber: 1,
 };
 
 export default state;
