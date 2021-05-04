@@ -1,21 +1,23 @@
 import React from "react";
 import "./Main.css";
 import MovieCard from "./MovieCard/MovieCard";
+import EmptyPage from "./EmptyPage/EmptyPage";
 import store from "../../../store";
 import { connect } from "react-redux";
 
 class Main extends React.Component {
   emptyOrFill = () => {
-    if (store.getState().movieList !== undefined) {
-      // console.log("Фильм есть", store.getState().movieList);
+    if (
+      store.getState().movieList !== undefined &&
+      store.getState().movieList.length > 0
+    ) {
       return store
         .getState()
         .movieList.map((el, index) => (
           <MovieCard key={index} movie={el}></MovieCard>
         ));
     } else {
-      // console.log("Кина нет", store.getState().movieList);
-      return <p>Кина нет</p>;
+      return <EmptyPage></EmptyPage>;
     }
   };
 

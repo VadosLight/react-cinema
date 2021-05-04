@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import { openConst, privateConst } from "../../constants";
-import store from "../../store";
+import store, { actions } from "../../store";
+import * as sortBy from "./utils";
 
 class Header extends React.Component {
   fetchListMovies() {
@@ -13,26 +14,54 @@ class Header extends React.Component {
     fetch(`${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&s=${TITLE}`)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
-        // if (data.Response === "False") {
-        //   throw new Error("Пустой ответ");
-        // }
-        store.dispatch({ type: "PUT_LIST_MOVIES", movieList: data.Search });
+        store.dispatch({
+          type: actions.PUT_LIST_MOVIES,
+          movieList: data.Search,
+        });
       })
-      .catch((rej) => console.log(rej))
-      .finally(() => {
-        // console.log("Хранилище ", store.getState());
-      });
+      .catch((rej) => console.log(rej));
+  }
+
+  changeSortType() {
+    const sortSelector = document.getElementById("sortOption").value;
+    let sortedList = store.getState().movieList;
+
+    store.dispatch({
+      type: actions.CHANGE_ORDER_SORT,
+      sortBy: sortSelector,
+    });
+
+    switch (sortSelector) {
+      case "name A-Z":
+        sortedList = sortBy.sortObjectAZ({ obj: sortedList });
+        break;
+      case "name Z-A":
+        sortedList = sortBy.sortObjectZA({ obj: sortedList });
+        break;
+      case "Year min":
+        sortedList = sortBy.sortObjectYearMin({ obj: sortedList });
+        break;
+      case "Year max":
+        sortedList = sortBy.sortObjectYearMax({ obj: sortedList });
+        break;
+      default:
+        break;
+    }
+
+    store.dispatch({
+      type: actions.PUT_LIST_MOVIES,
+      movieList: sortedList,
+    });
   }
 
   render() {
     return (
       <nav id="header">
-        <select id="sortOption">
+        <select id="sortOption" onChange={this.changeSortType}>
           <option>name A-Z</option>
           <option>name Z-A</option>
-          <option>Rating min</option>
-          <option>Rating max</option>
+          <option>Year min</option>
+          <option>Year max</option>
         </select>
         <Link to="/about">About</Link>
         <Link to="/">Main</Link>
