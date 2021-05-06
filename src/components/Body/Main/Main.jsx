@@ -22,10 +22,12 @@ class Main extends React.Component {
     )
       .then((res) => res.json())
       .then((data) => {
-        store.dispatch({
-          type: actions.PUT_LIST_MOVIES,
-          movieList: store.getState().movieList.concat(data.Search),
-        });
+        if (data.Search) {
+          store.dispatch({
+            type: actions.PUT_LIST_MOVIES,
+            movieList: store.getState().movieList.concat(data.Search),
+          });
+        }
       })
       .catch((rej) => console.log(rej));
   };
