@@ -1,7 +1,7 @@
 import React from "react";
 import "./EmptyPage.css";
 
-class EmptyPage extends React.Component {
+class EmptyPage extends React.Component<{},{}> {
   render() {
     return (
       <div className="empty-page">

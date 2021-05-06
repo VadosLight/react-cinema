@@ -5,4 +5,5 @@ const actions = {
   INCREMENT_COUNT_PAGE: "INCREMENT_COUNT_PAGE",
   RESETTING_COUNT_PAGE: "RESETTING_COUNT_PAGE",
 };
+
 export default actions;

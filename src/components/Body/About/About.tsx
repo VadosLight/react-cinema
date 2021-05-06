@@ -1,7 +1,7 @@
 import React from "react";
 import "./About.css";
 
-class About extends React.Component {
+class About extends React.Component<{}, {}> {
   cardAbout = () => {
     return (
       <div className="about">

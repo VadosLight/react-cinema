@@ -4,6 +4,8 @@ import "./MovieCard.css";
 import { privateConst, openConst } from "constants/index";
 import store, { actions } from "store";
 
+
+
 class MovieCard extends React.Component {
   fetchMoreData = (e) => {
     if (e.target.parentElement.className === "movie-card") {
@@ -23,12 +25,14 @@ class MovieCard extends React.Component {
 
   cardWithLinkToMoreInfo = () => {
     return (
+
       <Link
         to="/more"
         id={this.props.movieId}
         className="movie-card"
         onClick={this.fetchMoreData}
       >
+
         <img
           src={this.props.movie.Poster}
           alt={this.props.movie.Title}
@@ -41,9 +45,12 @@ class MovieCard extends React.Component {
           <br />
           {this.props.movie.Year.slice(0, 4)}
         </p>
+
       </Link>
+
     );
   };
+
 
   render() {
     return this.cardWithLinkToMoreInfo();

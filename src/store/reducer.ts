@@ -1,6 +1,6 @@
 import actions from "./actions";
 
-export default function reducer(state, action) {
+export default function reducer(state: any, action: any) {
   switch (action.type) {
     case actions.PUT_LIST_MOVIES:
       return { ...state, movieList: action.movieList };
