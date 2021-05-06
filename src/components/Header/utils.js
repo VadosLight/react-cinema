@@ -1,7 +1,7 @@
-function sortObjectAZ({ obj }) {
-  return obj.sort((a, b) => {
-    var TitleA = a.Title.toUpperCase();
-    var TitleB = b.Title.toUpperCase();
+function sortObjectAZ({ arrOfObj }) {
+  return arrOfObj.sort((a, b) => {
+    const TitleA = a.Title.toUpperCase();
+    const TitleB = b.Title.toUpperCase();
     if (TitleA < TitleB) {
       return -1;
     }
@@ -13,10 +13,10 @@ function sortObjectAZ({ obj }) {
   });
 }
 
-function sortObjectZA({ obj }) {
-  return obj.sort((a, b) => {
-    var TitleA = a.Title.toUpperCase();
-    var TitleB = b.Title.toUpperCase();
+function sortObjectZA({ arrOfObj }) {
+  return arrOfObj.sort((a, b) => {
+    const TitleA = a.Title.toUpperCase();
+    const TitleB = b.Title.toUpperCase();
     if (TitleA < TitleB) {
       return 1;
     }
@@ -28,12 +28,12 @@ function sortObjectZA({ obj }) {
   });
 }
 
-function sortObjectYearMin({ obj }) {
-  return obj.sort((a, b) => a.Year - b.Year);
+function sortObjectYearMin({ arrOfObj }) {
+  return arrOfObj.sort((a, b) => a.Year.slice(0, 4) - b.Year.slice(0, 4));
 }
 
-function sortObjectYearMax({ obj }) {
-  return obj.sort((a, b) => b.Year - a.Year);
+function sortObjectYearMax({ arrOfObj }) {
+  return arrOfObj.sort((a, b) => b.Year.slice(0, 4) - a.Year.slice(0, 4));
 }
 
 export { sortObjectAZ, sortObjectZA, sortObjectYearMin, sortObjectYearMax };

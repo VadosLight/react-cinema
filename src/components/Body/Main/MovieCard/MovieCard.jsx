@@ -21,7 +21,7 @@ class MovieCard extends React.Component {
     }
   };
 
-  render() {
+  cardWithLinkToMoreInfo = () => {
     return (
       <Link
         to="/more"
@@ -43,6 +43,10 @@ class MovieCard extends React.Component {
         </p>
       </Link>
     );
+  };
+
+  render() {
+    return this.cardWithLinkToMoreInfo();
   }
 }
 

@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import "./Main.css";
-import MovieCard from "./MovieCard/MovieCard";
-import EmptyPage from "./EmptyPage/EmptyPage";
 import store, { actions } from "store";
 import { openConst, privateConst } from "constants/index";
+
+import MovieCard from "./MovieCard/MovieCard";
+import EmptyPage from "./EmptyPage/EmptyPage";
+import "./Main.css";
 
 class Main extends React.Component {
   fetchMore = () => {

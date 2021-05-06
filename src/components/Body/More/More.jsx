@@ -2,7 +2,7 @@ import React from "react";
 import store from "store";
 import { connect } from "react-redux";
 import "./More.css";
-import TableElement from "./TableElement/TableElement";
+import Table from "./Table/Table";
 
 class More extends React.Component {
   getFullData = () => {
@@ -27,41 +27,16 @@ class More extends React.Component {
             <h1>
               <span className="title__name">{fullData.Title}</span>
               <span className="title__rating">
-                {fullData.imdbRating} / <span>{parseInt(fullData.imdbVotes)}K</span>
+                {fullData.imdbRating} /{" "}
+                <span>{parseInt(fullData.imdbVotes)}K</span>
               </span>
               ({[fullData.Type, " ", fullData.Year.slice(0, 4)]})
             </h1>
+
             <h3>{fullData.Plot}</h3>
 
             <h2 className="info__about">About</h2>
-            <table className="info__table">
-              <TableElement name="Genre" info={fullData.Genre}></TableElement>
-              <TableElement
-                name="Runtime"
-                info={fullData.Runtime}
-              ></TableElement>
-              <TableElement
-                name="Released"
-                info={fullData.Released}
-              ></TableElement>
-              <TableElement name="DVD" info={fullData.DVD}></TableElement>
-              <TableElement
-                name="Director"
-                info={fullData.Director}
-              ></TableElement>
-              <TableElement name="Writer" info={fullData.Writer}></TableElement>
-              <TableElement name="Actors" info={fullData.Actors}></TableElement>
-              <TableElement
-                name="Language"
-                info={fullData.Language}
-              ></TableElement>
-              <TableElement
-                name="Country"
-                info={fullData.Country}
-              ></TableElement>
-              <TableElement name="Awards" info={fullData.Awards}></TableElement>
-              <TableElement name="Rated" info={fullData.Rated}></TableElement>
-            </table>
+            <Table fullData={fullData}></Table>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import "./About.css";
 
 class About extends React.Component {
-  render() {
+  cardAbout = () => {
     return (
       <div className="about">
         <div className="about-card">
@@ -34,6 +34,10 @@ class About extends React.Component {
         </div>
       </div>
     );
+  };
+
+  render() {
+    return this.cardAbout();
   }
 }
 

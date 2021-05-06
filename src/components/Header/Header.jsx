@@ -34,16 +34,16 @@ class Header extends React.Component {
 
     switch (sortSelector) {
       case "name A-Z":
-        sortedList = sortBy.sortObjectAZ({ obj: sortedList });
+        sortedList = sortBy.sortObjectAZ({ arrOfObj: sortedList });
         break;
       case "name Z-A":
-        sortedList = sortBy.sortObjectZA({ obj: sortedList });
+        sortedList = sortBy.sortObjectZA({ arrOfObj: sortedList });
         break;
       case "Year min":
-        sortedList = sortBy.sortObjectYearMin({ obj: sortedList });
+        sortedList = sortBy.sortObjectYearMin({ arrOfObj: sortedList });
         break;
       case "Year max":
-        sortedList = sortBy.sortObjectYearMax({ obj: sortedList });
+        sortedList = sortBy.sortObjectYearMax({ arrOfObj: sortedList });
         break;
       default:
         break;
@@ -64,8 +64,10 @@ class Header extends React.Component {
           <option>Year min</option>
           <option>Year max</option>
         </select>
+
         <Link to="/about">About</Link>
         <Link to="/">Main</Link>
+
         <div id="search-field">
           <input id="search-field__input" type="text" />
           <Link to="/" id="search-field__btn" onClick={this.fetchListMovies}>
