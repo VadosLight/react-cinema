@@ -1,15 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+// import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import { openConst, privateConst } from "constants/index";
 import store, { actions } from "store";
+import { TMovieList } from "types/store"
 import * as sortBy from "./utils";
+
+
 
 class Header extends React.Component {
   fetchListMovies() {
     store.dispatch({ type: actions.RESETTING_COUNT_PAGE });
-    const TITLE = encodeURIComponent(
-      document.getElementById("search-field__input").value
+    const TITLE: string = encodeURIComponent(
+      (document.getElementById("search-field__input") as HTMLInputElement).value
     );
 
     fetch(`${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&s=${TITLE}`)
@@ -24,8 +28,8 @@ class Header extends React.Component {
   }
 
   changeSortType() {
-    const sortSelector = document.getElementById("sortOption").value;
-    let sortedList = store.getState().movieList;
+    const sortSelector: string = (document.getElementById("sortOption") as HTMLInputElement).value;
+    let sortedList: TMovieList = store.getState().movieList;
 
     store.dispatch({
       type: actions.CHANGE_ORDER_SORT,
@@ -65,15 +69,17 @@ class Header extends React.Component {
           <option>Year max</option>
         </select>
 
-        <Link to="/about">About</Link>
-        <Link to="/">Main</Link>
+        <NavLink to="/about">About</NavLink >
+
+        <NavLink to="/">Main</NavLink >
 
         <div id="search-field">
           <input id="search-field__input" type="text" />
-          <Link to="/" id="search-field__btn" onClick={this.fetchListMovies}>
+          <NavLink to="/" id="search-field__btn" onClick={this.fetchListMovies}>
             Поиск
-          </Link>
+          </NavLink >
         </div>
+
       </nav>
     );
   }

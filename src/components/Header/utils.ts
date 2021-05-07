@@ -1,13 +1,7 @@
-type ObjectHasTitle = {
-  readonly Title: string;
-};
+import { TMovieList, TShortMovieInfo } from "types/store";
 
-type ObjectHasYear = {
-  readonly Year: string;
-};
-
-function sortObjectAZ({ arrOfObj }: { arrOfObj: ObjectHasTitle[] }): object[] {
-  return arrOfObj.sort((a: ObjectHasTitle, b: ObjectHasTitle) => {
+function sortObjectAZ({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
+  return arrOfObj.sort((a: TShortMovieInfo, b: TShortMovieInfo) => {
     const TitleA = a.Title.toUpperCase();
     const TitleB = b.Title.toUpperCase();
     if (TitleA < TitleB) {
@@ -21,8 +15,8 @@ function sortObjectAZ({ arrOfObj }: { arrOfObj: ObjectHasTitle[] }): object[] {
   });
 }
 
-function sortObjectZA({ arrOfObj }: { arrOfObj: ObjectHasTitle[] }): object[] {
-  return arrOfObj.sort((a: ObjectHasTitle, b: ObjectHasTitle) => {
+function sortObjectZA({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
+  return arrOfObj.sort((a: TShortMovieInfo, b: TShortMovieInfo) => {
     const TitleA = a.Title.toUpperCase();
     const TitleB = b.Title.toUpperCase();
     if (TitleA < TitleB) {
@@ -36,15 +30,15 @@ function sortObjectZA({ arrOfObj }: { arrOfObj: ObjectHasTitle[] }): object[] {
   });
 }
 
-function sortObjectYearMin({ arrOfObj }: { arrOfObj: ObjectHasYear[] }) {
+function sortObjectYearMin({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
   return arrOfObj.sort(
-    (a: ObjectHasYear, b: ObjectHasYear) => parseInt(a.Year) - parseInt(b.Year)
+    (a: TShortMovieInfo, b: TShortMovieInfo) => parseInt(a.Year) - parseInt(b.Year)
   );
 }
 
-function sortObjectYearMax({ arrOfObj }: { arrOfObj: ObjectHasYear[] }) {
+function sortObjectYearMax({ arrOfObj }: { arrOfObj: TMovieList }):TMovieList {
   return arrOfObj.sort(
-    (a: ObjectHasYear, b: ObjectHasYear) => parseInt(b.Year) - parseInt(a.Year)
+    (a: TShortMovieInfo, b: TShortMovieInfo) => parseInt(b.Year) - parseInt(a.Year)
   );
 }
 
