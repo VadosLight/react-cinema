@@ -1,4 +1,6 @@
-const state = {
+import { TState } from "types/store";
+
+const state: TState = {
   movieMore: {
     Title: "The Hitchhiker's Guide to the Galaxy",
     Year: "2005",
@@ -34,7 +36,7 @@ const state = {
     Response: "True",
   },
   movieList: [],
-  sortBy: "",
+  sortBy: "name A-Z",
   pageNumber: 1,
 };
 
