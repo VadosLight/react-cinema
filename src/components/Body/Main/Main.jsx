@@ -7,11 +7,14 @@ import MovieCard from "./MovieCard/MovieCard";
 import EmptyPage from "./EmptyPage/EmptyPage";
 import "./Main.css";
 
+// import { TShortMovieInfo } from "types/store";
+
 class Main extends React.Component {
   fetchMore = () => {
     store.dispatch({ type: actions.INCREMENT_COUNT_PAGE });
 
     const TITLE = encodeURIComponent(
+      // (document.getElementById("search-field__input") as HTMLInputElement).value
       document.getElementById("search-field__input").value
     );
 
@@ -41,7 +44,7 @@ class Main extends React.Component {
         <>
           <div className="main__cards">
             {store.getState().movieList.map((el, index) => (
-              <MovieCard key={index} movie={el} movieId={el.imdbID}></MovieCard>
+              <MovieCard key={index} movie={el} movieId={el.imdbID} />
             ))}
           </div>
           <button className="btn-load-more" onClick={this.fetchMore}>
@@ -50,7 +53,7 @@ class Main extends React.Component {
         </>
       );
     } else {
-      return <EmptyPage></EmptyPage>;
+      return <EmptyPage />;
     }
   };
 

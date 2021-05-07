@@ -1,7 +1,13 @@
 import React from "react";
 import "./TableElement.css";
 
-class TableElement extends React.Component {
+type TTableElementProps = {
+  name: string;
+  info: string;
+}
+
+class TableElement extends React.Component<TTableElementProps> {
+  props: TTableElementProps;
   render() {
     return (
       <tr className="info__table-row">

@@ -23,7 +23,13 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": false,
-    "strictNullChecks": true
+    "strictNullChecks": false,
+    "types": [
+      "node",
+      "react",
+      "react-redux",
+      "react-router-dom"
+    ]
   },
   "exclude": [
     "node_modules",
@@ -35,6 +41,6 @@
     "src/setupTests.ts"
   ],
   "include": [
-    "src"
+    "src/**/*"
   ]
 }
