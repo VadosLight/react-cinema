@@ -36,7 +36,7 @@ class More extends React.Component {
             <h3>{fullData.Plot}</h3>
 
             <h2 className="info__about">About</h2>
-            <Table fullData={fullData}></Table>
+            <Table fullData={fullData}/>
           </div>
         </div>
       </div>

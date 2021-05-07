@@ -7,11 +7,14 @@ import MovieCard from "./MovieCard/MovieCard";
 import EmptyPage from "./EmptyPage/EmptyPage";
 import "./Main.css";
 
+// import { TShortMovieInfo } from "types/store";
+
 class Main extends React.Component {
   fetchMore = () => {
     store.dispatch({ type: actions.INCREMENT_COUNT_PAGE });
 
     const TITLE = encodeURIComponent(
+      // (document.getElementById("search-field__input") as HTMLInputElement).value
       document.getElementById("search-field__input").value
     );
 
