@@ -41,7 +41,7 @@ class Main extends React.Component {
         <>
           <div className="main__cards">
             {store.getState().movieList.map((el, index) => (
-              <MovieCard key={index} movie={el} movieId={el.imdbID}></MovieCard>
+              <MovieCard key={index} movie={el} movieId={el.imdbID} />
             ))}
           </div>
           <button className="btn-load-more" onClick={this.fetchMore}>
@@ -50,7 +50,7 @@ class Main extends React.Component {
         </>
       );
     } else {
-      return <EmptyPage></EmptyPage>;
+      return <EmptyPage />;
     }
   };
 

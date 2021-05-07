@@ -1,13 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./MovieCard.css";
 import { privateConst, openConst } from "constants/index";
 import store, { actions } from "store";
 
+type TMovieCardProps = {
+  readonly movie: {
+    readonly Title: string;
+    readonly Poster: string;
+    readonly Year: string;
+  };
+  readonly movieId: string;
+  readonly key: number
+}
 
+class MovieCard extends React.Component<TMovieCardProps> {
+  readonly props: TMovieCardProps;
 
-class MovieCard extends React.Component {
-  fetchMoreData = (e) => {
+  fetchMoreData = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target.parentElement.className === "movie-card") {
       fetch(
         `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&i=${e.target.parentElement.id}`
@@ -26,7 +36,7 @@ class MovieCard extends React.Component {
   cardWithLinkToMoreInfo = () => {
     return (
 
-      <Link
+      <NavLink
         to="/more"
         id={this.props.movieId}
         className="movie-card"
@@ -46,11 +56,10 @@ class MovieCard extends React.Component {
           {this.props.movie.Year.slice(0, 4)}
         </p>
 
-      </Link>
+      </NavLink>
 
     );
   };
-
 
   render() {
     return this.cardWithLinkToMoreInfo();

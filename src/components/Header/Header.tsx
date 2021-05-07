@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-// import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import { openConst, privateConst } from "constants/index";
 import store, { actions } from "store";
@@ -9,7 +8,7 @@ import * as sortBy from "./utils";
 
 
 
-class Header extends React.Component {
+class Header extends React.Component<{}, {}> {
   fetchListMovies() {
     store.dispatch({ type: actions.RESETTING_COUNT_PAGE });
     const TITLE: string = encodeURIComponent(
