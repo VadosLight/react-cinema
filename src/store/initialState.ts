@@ -1,4 +1,4 @@
-import { TState } from "types/store";
+import { TState } from "types/storeTypes";
 
 const state: TState = {
   movieMore: {
@@ -38,6 +38,7 @@ const state: TState = {
   movieList: [],
   sortBy: "name A-Z",
   pageNumber: 1,
+  title: "",
 };
 
 export default state;

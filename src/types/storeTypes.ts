@@ -19,4 +19,5 @@ export type TState = {
   movieList: TMovieList;
   sortBy: TSortBy;
   pageNumber: number;
+  title: string;
 };
