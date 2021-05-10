@@ -1,7 +1,8 @@
 import actions from "./actions";
 import initialState from "store/initialState";
+import {TAction, TState} from "types/storeTypes"
 
-export default function reducer(state: any = initialState, action: any) {
+export default function reducer(state: TState = initialState, action: TAction) {
   switch (action.type) {
     case actions.PUT_LIST_MOVIES:
       return { ...state, movieList: action.movieList };

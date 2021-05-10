@@ -15,8 +15,10 @@ class Header extends React.Component<{}, {}> {
   }
 
   changeSortType() {
-    const order: string = (document.getElementById("sortOption") as HTMLInputElement).value;
-    sagaMiddleware.run(changeOrderSortBy, order);
+    const order: unknown = (document.getElementById("sortOption") as HTMLInputElement).value || "name A-Z";
+    if (order === "name A-Z" || order === "name Z-A" || order === "Year min" || order === "Year max") {
+      sagaMiddleware.run(changeOrderSortBy, order);
+    }
   }
 
   render() {

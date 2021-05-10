@@ -1,12 +1,13 @@
 import { put, call, select } from "redux-saga/effects";
 import { openConst, privateConst } from "constants/index";
+import * as T from "types/storeTypes";
 import * as ac from "store/actionCreators";
 import * as sortBy from "store/utils/utils";
 
-export function* fetchListMoviesByTitle(title) {
+export function* fetchListMoviesByTitle(title: string) {
   try {
     yield put(ac.setSearchTitle({ title }));
-    const data = yield call(() => {
+    const data: any = yield call(() => {
       return fetch(
         `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&s=${title}`
       ).then((res) => res.json());
@@ -22,10 +23,10 @@ export function* resetPageCounter() {
   yield put(ac.resetPageCounter());
 }
 
-export function* changeOrderSortBy(order) {
+export function* changeOrderSortBy(order: T.TSortBy) {
   yield put(ac.setOrderSort({ sortBy: order }));
 
-  let sortedList = yield select((state) => state.movieList);
+  let sortedList: T.TMovieList = yield select((state) => state.movieList);
 
   switch (order) {
     case "name A-Z":
@@ -50,14 +51,14 @@ export function* changeOrderSortBy(order) {
 export function* fetchMoreMovies() {
   yield put(ac.incrementPageCounter());
 
-  const [title, pageNumber, currList] = yield select((state) => [
-    state.title,
-    state.pageNumber,
-    state.movieList,
-  ]);
+  const [title, pageNumber, currList]: [
+    string,
+    number,
+    T.TMovieList
+  ] = yield select((state) => [state.title, state.pageNumber, state.movieList]);
 
   try {
-    const data = yield call(() => {
+    const data: any = yield call(() => {
       return fetch(
         `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&s=${title}&page=${pageNumber}`
       ).then((res) => res.json());
@@ -69,10 +70,9 @@ export function* fetchMoreMovies() {
   }
 }
 
-export function* fetchMoreDataAboutMovieById(id) {
-  console.log(id);
+export function* fetchMoreDataAboutMovieById(id: number) {
   try {
-    const data = yield call(() => {
+    const data: T.TFullMovieInfo = yield call(() => {
       return fetch(
         `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&i=${id}`
       ).then((res) => res.json());
