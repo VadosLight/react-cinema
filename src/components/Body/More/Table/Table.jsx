@@ -7,7 +7,6 @@ import TableElement from "./TableElement/TableElement";
 //     Director?: string;
 //     DVD?: string;
 //     Awards?: string;
-
 //     Genre: string;
 //     Runtime: string;
 //     Writer: string;
