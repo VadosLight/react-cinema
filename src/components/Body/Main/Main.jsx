@@ -1,40 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import store, { actions } from "store";
-import { openConst, privateConst } from "constants/index";
+import store, { sagaMiddleware } from "store";
+import { fetchMoreMovies } from "store/sagas";
 
 import MovieCard from "./MovieCard/MovieCard";
 import EmptyPage from "./EmptyPage/EmptyPage";
 import "./Main.css";
 
-// import { TShortMovieInfo } from "types/store";
-
 class Main extends React.Component {
-  fetchMore = () => {
-    store.dispatch({ type: actions.INCREMENT_COUNT_PAGE });
-
-    const TITLE = encodeURIComponent(
-      // (document.getElementById("search-field__input") as HTMLInputElement).value
-      document.getElementById("search-field__input").value
-    );
-
-    fetch(
-      `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&s=${TITLE}&page=${
-        store.getState().pageNumber
-      }`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.Search) {
-          store.dispatch({
-            type: actions.PUT_LIST_MOVIES,
-            movieList: store.getState().movieList.concat(data.Search),
-          });
-        }
-      })
-      .catch((rej) => console.log(rej));
-  };
-
   emptyOrFill = () => {
     if (
       store.getState().movieList !== undefined &&
@@ -47,7 +20,10 @@ class Main extends React.Component {
               <MovieCard key={index} movie={el} movieId={el.imdbID} />
             ))}
           </div>
-          <button className="btn-load-more" onClick={this.fetchMore}>
+          <button
+            className="btn-load-more"
+            onClick={() => sagaMiddleware.run(fetchMoreMovies)}
+          >
             Load more...
           </button>
         </>

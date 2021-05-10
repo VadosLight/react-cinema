@@ -1,61 +1,24 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { sagaMiddleware } from "store";
+import { resetPageCounter, fetchListMoviesByTitle, changeOrderSortBy } from "store/sagas"
 import "./Header.css";
-import { openConst, privateConst } from "constants/index";
-import store, { actions } from "store";
-import { TMovieList } from "types/store"
-import * as sortBy from "./utils";
-
-
 
 class Header extends React.Component<{}, {}> {
   fetchListMovies() {
-    store.dispatch({ type: actions.RESETTING_COUNT_PAGE });
-    const TITLE: string = encodeURIComponent(
+    const title: string = encodeURIComponent(
       (document.getElementById("search-field__input") as HTMLInputElement).value
     );
 
-    fetch(`${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&s=${TITLE}`)
-      .then((res) => res.json())
-      .then((data) => {
-        store.dispatch({
-          type: actions.PUT_LIST_MOVIES,
-          movieList: data.Search,
-        });
-      })
-      .catch((rej) => console.log(rej));
+    sagaMiddleware.run(resetPageCounter);
+    sagaMiddleware.run(fetchListMoviesByTitle, title);
   }
 
   changeSortType() {
-    const sortSelector: string = (document.getElementById("sortOption") as HTMLInputElement).value;
-    let sortedList: TMovieList = store.getState().movieList;
-
-    store.dispatch({
-      type: actions.CHANGE_ORDER_SORT,
-      sortBy: sortSelector,
-    });
-
-    switch (sortSelector) {
-      case "name A-Z":
-        sortedList = sortBy.sortObjectAZ({ arrOfObj: sortedList });
-        break;
-      case "name Z-A":
-        sortedList = sortBy.sortObjectZA({ arrOfObj: sortedList });
-        break;
-      case "Year min":
-        sortedList = sortBy.sortObjectYearMin({ arrOfObj: sortedList });
-        break;
-      case "Year max":
-        sortedList = sortBy.sortObjectYearMax({ arrOfObj: sortedList });
-        break;
-      default:
-        break;
+    const order: unknown = (document.getElementById("sortOption") as HTMLInputElement).value || "name A-Z";
+    if (order === "name A-Z" || order === "name Z-A" || order === "Year min" || order === "Year max") {
+      sagaMiddleware.run(changeOrderSortBy, order);
     }
-
-    store.dispatch({
-      type: actions.PUT_LIST_MOVIES,
-      movieList: sortedList,
-    });
   }
 
   render() {

@@ -1,4 +1,4 @@
-import { TMovieList, TShortMovieInfo } from "types/store";
+import { TMovieList, TShortMovieInfo } from "types/storeTypes";
 
 function sortObjectAZ({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
   return arrOfObj.sort((a: TShortMovieInfo, b: TShortMovieInfo) => {
@@ -32,13 +32,15 @@ function sortObjectZA({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
 
 function sortObjectYearMin({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
   return arrOfObj.sort(
-    (a: TShortMovieInfo, b: TShortMovieInfo) => parseInt(a.Year) - parseInt(b.Year)
+    (a: TShortMovieInfo, b: TShortMovieInfo) =>
+      parseInt(a.Year) - parseInt(b.Year)
   );
 }
 
-function sortObjectYearMax({ arrOfObj }: { arrOfObj: TMovieList }):TMovieList {
+function sortObjectYearMax({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
   return arrOfObj.sort(
-    (a: TShortMovieInfo, b: TShortMovieInfo) => parseInt(b.Year) - parseInt(a.Year)
+    (a: TShortMovieInfo, b: TShortMovieInfo) =>
+      parseInt(b.Year) - parseInt(a.Year)
   );
 }
 
