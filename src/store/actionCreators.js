@@ -8,7 +8,7 @@ export const setFullInfoAboutMovie = ({ movieMore }) => {
   return { type: actions.PUT_FULL_INFO_MOVIE, movieMore };
 };
 
-export const setOrderSort = ({ sortBy }) => {
+export const setOrderSort = ({ sortBy = "name A-Z" }) => {
   return { type: actions.CHANGE_ORDER_SORT, sortBy };
 };
 

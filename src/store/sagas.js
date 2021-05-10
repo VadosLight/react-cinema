@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import { put, call, select } from "redux-saga/effects";
 import { openConst, privateConst } from "constants/index";
 import * as ac from "store/actionCreators";
@@ -50,7 +49,7 @@ export function* changeOrderSortBy(order) {
 
 export function* fetchMoreMovies() {
   yield put(ac.incrementPageCounter());
-  
+
   const [title, pageNumber, currList] = yield select((state) => [
     state.title,
     state.pageNumber,
@@ -64,6 +63,21 @@ export function* fetchMoreMovies() {
       ).then((res) => res.json());
     });
     yield put(ac.setListMovies({ movieList: currList.concat(data.Search) }));
+  } catch (err) {
+    console.log(err);
+    yield err;
+  }
+}
+
+export function* fetchMoreDataAboutMovieById(id) {
+  console.log(id);
+  try {
+    const data = yield call(() => {
+      return fetch(
+        `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&i=${id}`
+      ).then((res) => res.json());
+    });
+    yield put(ac.setFullInfoAboutMovie({ movieMore: data }));
   } catch (err) {
     console.log(err);
     yield err;

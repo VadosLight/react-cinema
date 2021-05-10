@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { sagaMiddleware } from "store";
+import { fetchMoreDataAboutMovieById } from "store/sagas";
 import "./MovieCard.css";
-import { privateConst, openConst } from "constants/index";
-import store, { actions } from "store";
 
 type TMovieCardProps = {
   readonly movie: {
@@ -19,17 +19,7 @@ class MovieCard extends React.Component<TMovieCardProps> {
 
   fetchMoreData = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target.parentElement.className === "movie-card") {
-      fetch(
-        `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&i=${e.target.parentElement.id}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          store.dispatch({
-            type: actions.PUT_FULL_INFO_MOVIE,
-            movieMore: data,
-          });
-        })
-        .catch((rej) => console.log(rej));
+      sagaMiddleware.run(fetchMoreDataAboutMovieById, e.target.parentElement.id)
     }
   };
 
