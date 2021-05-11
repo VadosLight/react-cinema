@@ -26,36 +26,38 @@ export function* resetPageCounter(): Generator<PutEffect, void> {
 }
 
 export function* changeOrderSortBy(order: T.TSortBy) {
+  // : Generator<StrictEffect | T.TMovieList>
   yield put(ac.setOrderSort({ sortBy: order }));
 
   let sortedList = yield select((state) => state.movieList);
 
-  switch (order) {
-    case "name A-Z":
-      // Type '{}' is missing the following properties from type 'TShortMovieInfo[]':
-      // length, pop, push, concat, and 28 more.ts(2740)
+  if (T.instanceOfTMovieList(sortedList)) {
+    switch (order) {
+      case "name A-Z":
+        // Type '{}' is missing the following properties from type
+        // 'TShortMovieInfo[]': length, pop, push, concat, and 28 more.ts(2740)
+        // utils.ts(3, 39): The expected type comes from property 'arrOfObj' which is declared
+        // here on type '{ arrOfObj: TMovieList; }'
+        sortedList = yield sortBy.sortObjectAZ({ arrOfObj: sortedList });
+        break;
+      case "name Z-A":
+        sortedList = yield sortBy.sortObjectZA({ arrOfObj: sortedList });
+        break;
+      case "Year min":
+        sortedList = yield sortBy.sortObjectYearMin({ arrOfObj: sortedList });
+        break;
+      case "Year max":
+        sortedList = yield sortBy.sortObjectYearMax({ arrOfObj: sortedList });
+        break;
+      default:
+        break;
+    }
 
-      //utils.ts(3, 39): The expected type comes from property 'arrOfObj'
-      //  which is declared here on type '{ arrOfObj: TMovieList; }'
-      sortedList = yield sortBy.sortObjectAZ({ arrOfObj: sortedList });
-      break;
-    case "name Z-A":
-      sortedList = yield sortBy.sortObjectZA({ arrOfObj: sortedList });
-      break;
-    case "Year min":
-      sortedList = yield sortBy.sortObjectYearMin({ arrOfObj: sortedList });
-      break;
-    case "Year max":
-      sortedList = yield sortBy.sortObjectYearMax({ arrOfObj: sortedList });
-      break;
-    default:
-      break;
+    // type 'unknown' is not assignable to type 'TMovieList'.ts(2322)
+    // actionCreators.ts(7, 3): The expected type comes from property 'movieList'
+    // which is declared here on type '{ movieList: TMovieList; }'
+    yield put(ac.setListMovies({ movieList: sortedList }));
   }
-
-  // Type 'unknown' is not assignable to type 'TMovieList'.ts(2322)
-  // actionCreators.ts(7, 3): The expected type comes from property
-  // 'movieList' which is declared here on type '{ movieList: TMovieList; }'
-  yield put(ac.setListMovies({ movieList: sortedList }));
 }
 
 export function* fetchMoreMovies() {

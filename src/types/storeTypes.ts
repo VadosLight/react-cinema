@@ -4,6 +4,10 @@ export type TFullMovieInfo = {
 
 export type TMovieList = Array<TShortMovieInfo>;
 
+export function instanceOfTMovieList(object: any): boolean {
+  return "Title" in object[0] && "Year" in object[0] && "imdbID" in object[0];
+}
+
 export type TShortMovieInfo = {
   readonly Title: string;
   readonly Year: string;
