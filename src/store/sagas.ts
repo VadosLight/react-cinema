@@ -3,22 +3,24 @@ import {
   call,
   select,
   PutEffect,
+  CallEffect,
   StrictEffect,
+  SelectEffect,
 } from "redux-saga/effects";
-import { openConst, privateConst } from "constants/index";
+import { privateConst } from "constants/index";
 import * as T from "types/storeTypes";
 import * as ac from "store/actionCreators";
 import * as sortBy from "store/utils/utils";
 
 export function* fetchListMoviesByTitle(
   title: string
-): Generator<StrictEffect, void> {
+): Generator<PutEffect | CallEffect, void> {
   try {
     yield put(ac.setSearchTitle({ title }));
     const data: any = yield call(() => {
-      return fetch(
-        `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&s=${title}`
-      ).then((res) => res.json());
+      return fetch(`${privateConst.URL_WITH_API}&s=${title}`).then((res) =>
+        res.json()
+      );
     });
     yield put(ac.setListMovies({ movieList: data.Search }));
   } catch (err) {
@@ -31,73 +33,74 @@ export function* resetPageCounter(): Generator<PutEffect, void> {
   yield put(ac.resetPageCounter());
 }
 
-export function* changeOrderSortBy(order: T.TSortBy) {
+export function* changeOrderSortBy(
+  order: T.TSortBy
+): Generator<StrictEffect | T.TMovieList, void> {
   yield put(ac.setOrderSort({ sortBy: order }));
 
-  // Type '{}' is missing the following properties from type 'TShortMovieInfo[]':
-  // length, pop, push, concat, and 28 more.ts(2740)
-  let sortedList: T.TMovieList = yield select(
-    (state: T.TState): T.TMovieList => state.movieList
-  );
+  let sortedList: unknown = yield select((state) => state.movieList);
 
-  switch (order) {
-    case "name A-Z":
-      // Type 'unknown' is not assignable to type 'TMovieList'.ts(2322)
-      sortedList = yield sortBy.sortObjectAZ({ arrOfObj: sortedList });
-      break;
-    case "name Z-A":
-      sortedList = yield sortBy.sortObjectZA({ arrOfObj: sortedList });
-      break;
-    case "Year min":
-      sortedList = yield sortBy.sortObjectYearMin({ arrOfObj: sortedList });
-      break;
-    case "Year max":
-      sortedList = yield sortBy.sortObjectYearMax({ arrOfObj: sortedList });
-      break;
-    default:
-      break;
+  if (T.instanceOfTMovieList(sortedList)) {
+    switch (order) {
+      case "name A-Z":
+        sortedList = yield sortBy.sortObjectAZ({ arrOfObj: sortedList });
+        break;
+      case "name Z-A":
+        sortedList = yield sortBy.sortObjectZA({ arrOfObj: sortedList });
+        break;
+      case "Year min":
+        sortedList = yield sortBy.sortObjectYearMin({ arrOfObj: sortedList });
+        break;
+      case "Year max":
+        sortedList = yield sortBy.sortObjectYearMax({ arrOfObj: sortedList });
+        break;
+      default:
+        break;
+    }
+
+    if (T.instanceOfTMovieList(sortedList)) {
+      yield put(ac.setListMovies({ movieList: sortedList }));
+    }
   }
-
-  yield put(ac.setListMovies({ movieList: sortedList }));
 }
 
-export function* fetchMoreMovies() {
+export function* fetchMoreMovies(): Generator<
+  SelectEffect | PutEffect | CallEffect,
+  void
+> {
   yield put(ac.incrementPageCounter());
 
-  // Type 'unknown' is not assignable to type '[string, number, TMovieList]'.ts(2322)
-  const [title, pageNumber, currList]: [
-    string,
-    number,
-    T.TMovieList
-  ] = yield select((state: T.TState): [string, number, T.TMovieList] => [
-    state.title,
-    state.pageNumber,
-    state.movieList,
-  ]);
+  const title: unknown = yield select((state) => state.title);
+  const pageNumber: unknown = yield select((state) => state.pageNumber);
+  const currList: unknown = yield select((state) => state.movieList);
 
   try {
     const data: any = yield call(() => {
       return fetch(
-        `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&s=${title}&page=${pageNumber}`
+        `${privateConst.URL_WITH_API}&s=${title}&page=${pageNumber}`
       ).then((res) => res.json());
     });
-    yield put(ac.setListMovies({ movieList: currList.concat(data.Search) }));
+    if (T.instanceOfTMovieList(currList)) {
+      yield put(ac.setListMovies({ movieList: currList.concat(data.Search) }));
+    }
   } catch (err) {
     console.log(err);
     yield err;
   }
 }
 
-export function* fetchMoreDataAboutMovieById(id: number) {
+export function* fetchMoreDataAboutMovieById(
+  id: number
+): Generator<CallEffect | PutEffect, void> {
   try {
-    // Type 'unknown' is not assignable to type 'TFullMovieInfo'.
-    // Index signature is missing in type '{}'.ts(2322)
-    const data: T.TFullMovieInfo = yield call(() => {
-      return fetch(
-        `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&i=${id}`
-      ).then((res) => res.json());
+    const data: unknown = yield call(() => {
+      return fetch(`${privateConst.URL_WITH_API}&i=${id}`).then((res) =>
+        res.json()
+      );
     });
-    yield put(ac.setFullInfoAboutMovie({ movieMore: data }));
+    if (T.instanceOfTShortMovieInfo(data)) {
+      yield put(ac.setFullInfoAboutMovie({ movieMore: data }));
+    }
   } catch (err) {
     console.log(err);
     yield err;

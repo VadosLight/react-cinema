@@ -2,30 +2,28 @@ import { TMovieList, TShortMovieInfo } from "types/storeTypes";
 
 function sortObjectAZ({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
   return arrOfObj.sort((a: TShortMovieInfo, b: TShortMovieInfo) => {
-    const TitleA = a.Title.toUpperCase();
-    const TitleB = b.Title.toUpperCase();
+    const TitleA: string = a.Title.toUpperCase();
+    const TitleB: string = b.Title.toUpperCase();
     if (TitleA < TitleB) {
       return -1;
     }
     if (TitleA > TitleB) {
       return 1;
     }
-
     return 0;
   });
 }
 
 function sortObjectZA({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
   return arrOfObj.sort((a: TShortMovieInfo, b: TShortMovieInfo) => {
-    const TitleA = a.Title.toUpperCase();
-    const TitleB = b.Title.toUpperCase();
+    const TitleA: string = a.Title.toUpperCase();
+    const TitleB: string = b.Title.toUpperCase();
     if (TitleA < TitleB) {
       return 1;
     }
     if (TitleA > TitleB) {
       return -1;
     }
-
     return 0;
   });
 }

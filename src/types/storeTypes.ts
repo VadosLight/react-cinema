@@ -2,6 +2,16 @@ export type TFullMovieInfo = {
   readonly [key: string]: string | Array<any>;
 };
 
+export function instanceOfTMovieList(object: any): object is TMovieList {
+  return "Title" in object[0] && "Year" in object[0] && "imdbID" in object[0];
+}
+
+export function instanceOfTShortMovieInfo(
+  object: any
+): object is TShortMovieInfo {
+  return "Title" in object && "Year" in object && "imdbID" in object;
+}
+
 export type TMovieList = Array<TShortMovieInfo>;
 
 export type TShortMovieInfo = {
@@ -24,7 +34,6 @@ export type TState = {
 
 export type TAction = {
   readonly type: string;
-  // readonly [key: string]: any;
   readonly movieMore?: TFullMovieInfo;
   readonly movieList?: TMovieList;
   readonly sortBy?: TSortBy;
