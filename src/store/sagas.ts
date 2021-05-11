@@ -1,10 +1,18 @@
-import { put, call, select } from "redux-saga/effects";
+import {
+  put,
+  call,
+  select,
+  PutEffect,
+  StrictEffect,
+} from "redux-saga/effects";
 import { openConst, privateConst } from "constants/index";
 import * as T from "types/storeTypes";
 import * as ac from "store/actionCreators";
 import * as sortBy from "store/utils/utils";
 
-export function* fetchListMoviesByTitle(title: string) {
+export function* fetchListMoviesByTitle(
+  title: string
+): Generator<StrictEffect, void> {
   try {
     yield put(ac.setSearchTitle({ title }));
     const data: any = yield call(() => {
@@ -19,17 +27,22 @@ export function* fetchListMoviesByTitle(title: string) {
   }
 }
 
-export function* resetPageCounter() {
+export function* resetPageCounter(): Generator<PutEffect, void> {
   yield put(ac.resetPageCounter());
 }
 
 export function* changeOrderSortBy(order: T.TSortBy) {
   yield put(ac.setOrderSort({ sortBy: order }));
 
-  let sortedList: T.TMovieList = yield select((state) => state.movieList);
+  // Type '{}' is missing the following properties from type 'TShortMovieInfo[]':
+  // length, pop, push, concat, and 28 more.ts(2740)
+  let sortedList: T.TMovieList = yield select(
+    (state: T.TState): T.TMovieList => state.movieList
+  );
 
   switch (order) {
     case "name A-Z":
+      // Type 'unknown' is not assignable to type 'TMovieList'.ts(2322)
       sortedList = yield sortBy.sortObjectAZ({ arrOfObj: sortedList });
       break;
     case "name Z-A":
@@ -51,11 +64,16 @@ export function* changeOrderSortBy(order: T.TSortBy) {
 export function* fetchMoreMovies() {
   yield put(ac.incrementPageCounter());
 
+  // Type 'unknown' is not assignable to type '[string, number, TMovieList]'.ts(2322)
   const [title, pageNumber, currList]: [
     string,
     number,
     T.TMovieList
-  ] = yield select((state) => [state.title, state.pageNumber, state.movieList]);
+  ] = yield select((state: T.TState): [string, number, T.TMovieList] => [
+    state.title,
+    state.pageNumber,
+    state.movieList,
+  ]);
 
   try {
     const data: any = yield call(() => {
@@ -72,6 +90,8 @@ export function* fetchMoreMovies() {
 
 export function* fetchMoreDataAboutMovieById(id: number) {
   try {
+    // Type 'unknown' is not assignable to type 'TFullMovieInfo'.
+    // Index signature is missing in type '{}'.ts(2322)
     const data: T.TFullMovieInfo = yield call(() => {
       return fetch(
         `${openConst.BASE_URL}?apikey=${privateConst.API_KEY}&i=${id}`
