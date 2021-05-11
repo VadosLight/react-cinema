@@ -19,7 +19,7 @@ import TableElement from "./TableElement/TableElement";
 // }
 
 class Table extends React.Component {
-  // props: TTableProps;
+  
   render() {
     return (
       <table>

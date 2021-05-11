@@ -1,4 +1,12 @@
-import { put, call, select, PutEffect, CallEffect } from "redux-saga/effects";
+import {
+  put,
+  call,
+  select,
+  PutEffect,
+  CallEffect,
+  StrictEffect,
+  SelectEffect,
+} from "redux-saga/effects";
 import { privateConst } from "constants/index";
 import * as T from "types/storeTypes";
 import * as ac from "store/actionCreators";
@@ -25,19 +33,16 @@ export function* resetPageCounter(): Generator<PutEffect, void> {
   yield put(ac.resetPageCounter());
 }
 
-export function* changeOrderSortBy(order: T.TSortBy) {
-  // : Generator<StrictEffect | T.TMovieList>
+export function* changeOrderSortBy(
+  order: T.TSortBy
+): Generator<StrictEffect | T.TMovieList, void> {
   yield put(ac.setOrderSort({ sortBy: order }));
 
-  let sortedList = yield select((state) => state.movieList);
+  let sortedList: unknown = yield select((state) => state.movieList);
 
   if (T.instanceOfTMovieList(sortedList)) {
     switch (order) {
       case "name A-Z":
-        // Type '{}' is missing the following properties from type
-        // 'TShortMovieInfo[]': length, pop, push, concat, and 28 more.ts(2740)
-        // utils.ts(3, 39): The expected type comes from property 'arrOfObj' which is declared
-        // here on type '{ arrOfObj: TMovieList; }'
         sortedList = yield sortBy.sortObjectAZ({ arrOfObj: sortedList });
         break;
       case "name Z-A":
@@ -53,26 +58,21 @@ export function* changeOrderSortBy(order: T.TSortBy) {
         break;
     }
 
-    // type 'unknown' is not assignable to type 'TMovieList'.ts(2322)
-    // actionCreators.ts(7, 3): The expected type comes from property 'movieList'
-    // which is declared here on type '{ movieList: TMovieList; }'
-    yield put(ac.setListMovies({ movieList: sortedList }));
+    if (T.instanceOfTMovieList(sortedList)) {
+      yield put(ac.setListMovies({ movieList: sortedList }));
+    }
   }
 }
 
-export function* fetchMoreMovies() {
+export function* fetchMoreMovies(): Generator<
+  SelectEffect | PutEffect | CallEffect,
+  void
+> {
   yield put(ac.incrementPageCounter());
 
-  // Type 'unknown' is not assignable to type '[string, number, TMovieList]'.ts(2322)
-  const [title, pageNumber, currList]: [
-    string,
-    number,
-    T.TMovieList
-  ] = yield select((state: T.TState): [string, number, T.TMovieList] => [
-    state.title,
-    state.pageNumber,
-    state.movieList,
-  ]);
+  const title: unknown = yield select((state) => state.title);
+  const pageNumber: unknown = yield select((state) => state.pageNumber);
+  const currList: unknown = yield select((state) => state.movieList);
 
   try {
     const data: any = yield call(() => {
@@ -80,23 +80,27 @@ export function* fetchMoreMovies() {
         `${privateConst.URL_WITH_API}&s=${title}&page=${pageNumber}`
       ).then((res) => res.json());
     });
-    yield put(ac.setListMovies({ movieList: currList.concat(data.Search) }));
+    if (T.instanceOfTMovieList(currList)) {
+      yield put(ac.setListMovies({ movieList: currList.concat(data.Search) }));
+    }
   } catch (err) {
     console.log(err);
     yield err;
   }
 }
 
-export function* fetchMoreDataAboutMovieById(id: number) {
+export function* fetchMoreDataAboutMovieById(
+  id: number
+): Generator<CallEffect | PutEffect, void> {
   try {
-    // Type 'unknown' is not assignable to type 'TFullMovieInfo'.
-    // Index signature is missing in type '{}'.ts(2322)
-    const data: T.TFullMovieInfo = yield call(() => {
+    const data: unknown = yield call(() => {
       return fetch(`${privateConst.URL_WITH_API}&i=${id}`).then((res) =>
         res.json()
       );
     });
-    yield put(ac.setFullInfoAboutMovie({ movieMore: data }));
+    if (T.instanceOfTShortMovieInfo(data)) {
+      yield put(ac.setFullInfoAboutMovie({ movieMore: data }));
+    }
   } catch (err) {
     console.log(err);
     yield err;
