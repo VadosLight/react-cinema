@@ -80,7 +80,8 @@ export function* fetchMoreMovies(): Generator<
         `${privateConst.URL_WITH_API}&s=${title}&page=${pageNumber}`
       ).then((res) => res.json());
     });
-    if (T.instanceOfTMovieList(currList)) {
+
+    if (T.instanceOfTMovieList(currList) && data.Search !== undefined) {
       yield put(ac.setListMovies({ movieList: currList.concat(data.Search) }));
     }
   } catch (err) {
