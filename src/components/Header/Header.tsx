@@ -38,7 +38,7 @@ class Header extends React.Component<{}, {}> {
         <div id="search-field">
           <input id="search-field__input" type="text" />
           <NavLink to="/" id="search-field__btn" onClick={this.fetchListMovies}>
-            Поиск
+            Search
           </NavLink >
         </div>
 
