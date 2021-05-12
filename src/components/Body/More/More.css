@@ -14,9 +14,12 @@ h1 {
 .more__background {
   filter: brightness(10%);
   width: 100%;
-  min-width: 1200px;
-  height: 100%;
-  position: fixed;
+  min-width: 800px;
+  min-height: 60rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
   background-color: black;
 
   z-index: -1;
