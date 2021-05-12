@@ -17,22 +17,20 @@ type TMovieCardProps = {
 class MovieCard extends React.Component<TMovieCardProps> {
   readonly props: TMovieCardProps;
 
-  fetchMoreData = (e: React.MouseEvent<HTMLButtonElement>) => {
+  fetchMoreData = (e: React.MouseEvent<HTMLButtonElement>): void => {
     if (e.target.parentElement.className === "movie-card") {
       sagaMiddleware.run(fetchMoreDataAboutMovieById, e.target.parentElement.id)
     }
   };
 
-  cardWithLinkToMoreInfo = () => {
+  cardWithLinkToMoreInfo = (): JSX.Element => {
     return (
-
       <NavLink
         to="/more"
         id={this.props.movieId}
         className="movie-card"
         onClick={this.fetchMoreData}
       >
-
         <img
           src={this.props.movie.Poster}
           alt={this.props.movie.Title}
@@ -45,9 +43,7 @@ class MovieCard extends React.Component<TMovieCardProps> {
           <br />
           {this.props.movie.Year.slice(0, 4)}
         </p>
-
       </NavLink>
-
     );
   };
 

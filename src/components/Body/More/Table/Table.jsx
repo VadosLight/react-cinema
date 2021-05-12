@@ -19,7 +19,7 @@ import TableElement from "./TableElement/TableElement";
 // }
 
 class Table extends React.Component {
-  
+
   render() {
     return (
       <table>
@@ -43,3 +43,9 @@ class Table extends React.Component {
 }
 
 export default Table;
+
+// 'TableElement' cannot be used as a JSX component.
+// Its instance type 'TableElement' is not a valid JSX element.
+// Type 'TableElement' is missing the following properties from 
+// type 'ElementClass': context, setState, forceUpdate, state, 
+// refsts(2786)

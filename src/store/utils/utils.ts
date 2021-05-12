@@ -1,7 +1,7 @@
 import { TMovieList, TShortMovieInfo } from "types/storeTypes";
 
 function sortObjectAZ({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
-  return arrOfObj.sort((a: TShortMovieInfo, b: TShortMovieInfo) => {
+  return arrOfObj.sort((a: TShortMovieInfo, b: TShortMovieInfo): number => {
     const TitleA: string = a.Title.toUpperCase();
     const TitleB: string = b.Title.toUpperCase();
     if (TitleA < TitleB) {
@@ -15,7 +15,7 @@ function sortObjectAZ({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
 }
 
 function sortObjectZA({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
-  return arrOfObj.sort((a: TShortMovieInfo, b: TShortMovieInfo) => {
+  return arrOfObj.sort((a: TShortMovieInfo, b: TShortMovieInfo): number => {
     const TitleA: string = a.Title.toUpperCase();
     const TitleB: string = b.Title.toUpperCase();
     if (TitleA < TitleB) {
@@ -30,14 +30,14 @@ function sortObjectZA({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
 
 function sortObjectYearMin({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
   return arrOfObj.sort(
-    (a: TShortMovieInfo, b: TShortMovieInfo) =>
+    (a: TShortMovieInfo, b: TShortMovieInfo): number =>
       parseInt(a.Year) - parseInt(b.Year)
   );
 }
 
 function sortObjectYearMax({ arrOfObj }: { arrOfObj: TMovieList }): TMovieList {
   return arrOfObj.sort(
-    (a: TShortMovieInfo, b: TShortMovieInfo) =>
+    (a: TShortMovieInfo, b: TShortMovieInfo): number =>
       parseInt(b.Year) - parseInt(a.Year)
   );
 }

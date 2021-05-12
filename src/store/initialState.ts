@@ -12,8 +12,7 @@ const state: TState = {
     Writer:
       "Douglas Adams (book), Douglas Adams (screenplay), Karey Kirkpatrick (screenplay)",
     Actors: "Bill Bailey, Anna Chancellor, Warwick Davis, Yasiin Bey",
-    Plot:
-      'Mere seconds before the Earth is to be demolished by an alien construction crew, journeyman Arthur Dent is swept off the planet by his friend Ford Prefect, a researcher penning a new edition of "The Hitchhiker\'s Guide to the Galaxy."',
+    Plot: 'Mere seconds before the Earth is to be demolished by an alien construction crew, journeyman Arthur Dent is swept off the planet by his friend Ford Prefect, a researcher penning a new edition of "The Hitchhiker\'s Guide to the Galaxy."',
     Language: "English",
     Country: "UK, USA",
     Awards: "1 win & 10 nominations.",

@@ -3,6 +3,7 @@ import store from "store";
 import { connect } from "react-redux";
 import "./More.css";
 import Table from "./Table/Table";
+// import * as T from "types/storeTypes"
 
 class More extends React.Component {
   getFullData = () => {
@@ -36,7 +37,13 @@ class More extends React.Component {
             <h3>{fullData.Plot}</h3>
 
             <h2 className="info__about">About</h2>
-            <Table fullData={fullData}/>
+            
+            {/* JSX element class does not support attributes because 
+            it does not have a 'props' property.ts(2607)
+            'Table' cannot be used as a JSX component.
+            Its instance type 'Table' is not a valid JSX element.
+            Type 'Table' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.ts(2786) */}
+            <Table fullData={fullData} />
           </div>
         </div>
       </div>

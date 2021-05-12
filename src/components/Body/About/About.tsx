@@ -2,7 +2,7 @@ import React from "react";
 import "./About.css";
 
 class About extends React.Component<{}, {}> {
-  cardAbout = () => {
+  cardAbout = (): JSX.Element => {
     return (
       <div className="about">
         <div className="about-card">
@@ -15,12 +15,14 @@ class About extends React.Component<{}, {}> {
             <li>TypeScript</li>
             <li>Jest</li>
           </ul>
+
           <h3>
             Используемое{" "}
             <a href="https://www.omdbapi.com/" target="_blank" rel="noreferrer">
               API
             </a>
           </h3>
+
           <h3>
             Персональное{" "}
             <a
@@ -31,12 +33,13 @@ class About extends React.Component<{}, {}> {
               резюме
             </a>
           </h3>
+
         </div>
       </div>
     );
   };
 
-  render() {
+  render(): JSX.Element {
     return this.cardAbout();
   }
 }
