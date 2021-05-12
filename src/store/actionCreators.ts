@@ -1,15 +1,11 @@
 import actions from "store/actions";
 import * as T from "types/storeTypes";
 
-export const setListMovies = ({movieList,}: {movieList: T.TMovieList}): T.TAction => {
+export const setListMovies = ({movieList}:{movieList: T.TMovieList;}): T.TAction => {
   return { type: actions.PUT_LIST_MOVIES, movieList };
 };
 
-export const setFullInfoAboutMovie = ({
-  movieMore,
-}: {
-  movieMore: T.TFullMovieInfo;
-}): T.TAction => {
+export const setFullInfoAboutMovie = ({movieMore}: {movieMore: T.TFullMovieInfo;}): T.TAction => {
   return { type: actions.PUT_FULL_INFO_MOVIE, movieMore };
 };
 

@@ -5,7 +5,7 @@ import { resetPageCounter, fetchListMoviesByTitle, changeOrderSortBy } from "sto
 import "./Header.css";
 
 class Header extends React.Component<{}, {}> {
-  fetchListMovies() {
+  fetchListMovies(): void {
     const title: string = encodeURIComponent(
       (document.getElementById("search-field__input") as HTMLInputElement).value
     );
@@ -14,7 +14,7 @@ class Header extends React.Component<{}, {}> {
     sagaMiddleware.run(fetchListMoviesByTitle, title);
   }
 
-  changeSortType() {
+  changeSortType(): void {
     const order: unknown = (document.getElementById("sortOption") as HTMLInputElement).value || "name A-Z";
     if (order === "name A-Z" || order === "name Z-A" || order === "Year min" || order === "Year max") {
       sagaMiddleware.run(changeOrderSortBy, order);
