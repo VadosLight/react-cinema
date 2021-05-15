@@ -4,4 +4,4 @@ const openConst: TOpenConstants = {
   BASE_URL: "https://www.omdbapi.com/",
 };
 
-export default openConst;
+export default Object.freeze(openConst);

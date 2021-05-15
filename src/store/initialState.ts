@@ -40,4 +40,4 @@ const state: TState = {
   title: "",
 };
 
-export default state;
+export default Object.freeze(state);

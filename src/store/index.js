@@ -13,5 +13,5 @@ const composed = compose(
 
 const store = createStore(reducer, initState, composed);
 
-export default store;
+export default Object.freeze(store);
 export { actions, sagaMiddleware };

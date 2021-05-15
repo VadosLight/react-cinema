@@ -11,4 +11,4 @@ const actions: TActions = {
   SET_SEARCH_TITLE: "SET_SEARCH_TITLE",
 };
 
-export default actions;
+export default Object.freeze(actions);

@@ -8,4 +8,4 @@ const privateConst: TPrivateConstants = {
 
 privateConst.URL_WITH_API = `${open.BASE_URL}?apikey=${privateConst.API_KEY}`;
 
-export default privateConst;
+export default Object.freeze(privateConst);
