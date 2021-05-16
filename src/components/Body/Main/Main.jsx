@@ -1,13 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 import store, { sagaMiddleware } from "store";
-import { fetchMoreMovies } from "store/sagas";
+import { fetchMoreMovies, fetchMoreDataAboutMovieById } from "store/sagas";
 
 import MovieCard from "./MovieCard/MovieCard";
 import EmptyPage from "./EmptyPage/EmptyPage";
 import "./Main.css";
 
 class Main extends React.Component {
+  fetchMoreDataAboutMovie = (event) => {
+    if (event.target.parentElement.className === "movie-card") {
+      sagaMiddleware.run(
+        fetchMoreDataAboutMovieById,
+        event.target.parentElement.id
+      );
+    }
+  };
+
   emptyOrFill = () => {
     if (
       store.getState().movieList !== undefined &&
@@ -15,7 +24,7 @@ class Main extends React.Component {
     ) {
       return (
         <>
-          <div className="main__cards">
+          <div className="main__cards" onClick={this.fetchMoreDataAboutMovie}>
             {store.getState().movieList.map((el, index) => (
               <MovieCard key={index} movie={el} movieId={el.imdbID} />
             ))}
