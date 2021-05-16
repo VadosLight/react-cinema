@@ -6,7 +6,7 @@ type TTableElementProps = {
   info: string;
 }
 
-class TableElement extends React.Component<TTableElementProps> {
+class TableElement extends React.PureComponent<TTableElementProps> {
   props: TTableElementProps;
   render() {
     return (

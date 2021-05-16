@@ -7,7 +7,7 @@ import MovieCard from "./MovieCard/MovieCard";
 import EmptyPage from "./EmptyPage/EmptyPage";
 import "./Main.css";
 
-class Main extends React.Component {
+class Main extends React.PureComponent {
   fetchMoreDataAboutMovie = (event) => {
     if (event.target.parentElement.className === "movie-card") {
       sagaMiddleware.run(

@@ -5,7 +5,7 @@ import "./More.css";
 import Table from "./Table/Table";
 // import * as T from "types/storeTypes"
 
-class More extends React.Component {
+class More extends React.PureComponent {
   getFullData = () => {
     const fullData = store.getState().movieMore;
 

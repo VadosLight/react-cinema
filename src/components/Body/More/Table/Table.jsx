@@ -18,7 +18,7 @@ import TableElement from "./TableElement/TableElement";
 //   }
 // }
 
-class Table extends React.Component {
+class Table extends React.PureComponent {
 
   render() {
     return (

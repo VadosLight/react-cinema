@@ -4,7 +4,7 @@ import { sagaMiddleware } from "store";
 import { resetPageCounter, fetchListMoviesByTitle, changeOrderSortBy } from "store/sagas"
 import "./Header.css";
 
-class Header extends React.Component<{}, {}> {
+class Header extends React.PureComponent<{}, {}> {
   fetchListMovies(): void {
     const title: string = encodeURIComponent(
       (document.getElementById("search-field__input") as HTMLInputElement).value
@@ -38,7 +38,7 @@ class Header extends React.Component<{}, {}> {
         <div id="search-field">
           <input id="search-field__input" type="text" />
           <NavLink to="/" id="search-field__btn" onClick={this.fetchListMovies}>
-            Поиск
+            Search
           </NavLink >
         </div>
 

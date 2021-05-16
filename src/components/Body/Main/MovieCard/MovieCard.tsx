@@ -12,7 +12,7 @@ type TMovieCardProps = {
   readonly key: number
 }
 
-class MovieCard extends React.Component<TMovieCardProps> {
+class MovieCard extends React.PureComponent<TMovieCardProps> {
   readonly props: TMovieCardProps;
 
   cardWithLinkToMoreInfo = (): JSX.Element => {

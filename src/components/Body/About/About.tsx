@@ -1,14 +1,14 @@
 import React from "react";
 import "./About.css";
 
-class About extends React.Component<{}, {}> {
+class About extends React.PureComponent<{}, {}> {
   cardAbout = (): JSX.Element => {
     return (
       <div className="about">
         <div className="about-card">
-          <h1>Работу выполнил Татаринцев Вадим при поддержке Andersen lab.</h1>
+          <h1>The work was performed by Vadim Tatarintsev with the support of Andersen lab.</h1>
 
-          <h2>Стек технологий:</h2>
+          <h2>Technology Stack:</h2>
           <ul>
             <li>React</li>
             <li>Redux-Saga</li>
@@ -17,20 +17,20 @@ class About extends React.Component<{}, {}> {
           </ul>
 
           <h3>
-            Используемое{" "}
+            Using{" "}
             <a href="https://www.omdbapi.com/" target="_blank" rel="noreferrer">
               API
             </a>
           </h3>
 
           <h3>
-            Персональное{" "}
+            Personal{" "}
             <a
               href="https://cyberpunk-resume.vercel.app/"
               target="_blank"
               rel="noreferrer"
             >
-              резюме
+              resume
             </a>
           </h3>
 
