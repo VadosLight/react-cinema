@@ -24,11 +24,11 @@ class Header extends React.Component<{}, {}> {
   render() {
     return (
       <nav id="header">
-        <select id="sortOption" onChange={this.changeSortType}>
-          <option selected value="name A-Z">name A-Z</option>
-          <option value="name Z-A">name Z-A</option>
-          <option value="Year min">Year min</option>
-          <option value="Year max">Year max</option>
+        <select id="sortOption" defaultValue="name A-Z" onChange={this.changeSortType}>
+          <option >name A-Z</option>
+          <option >name Z-A</option>
+          <option >Year min</option>
+          <option >Year max</option>
         </select>
 
         <NavLink to="/about">About</NavLink >
